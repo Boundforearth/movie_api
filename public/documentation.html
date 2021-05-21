@@ -6,5 +6,106 @@
     <body>
       <h1>myFlix</h1>
       <p>A server side API that will give users access to infromation on movies, directors, etc.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Description
+            </th>
+            <th>
+              Endpoint
+            </th>
+            <th>
+              Request Type
+            </th>
+            <th>
+              Request Body
+            </th>
+            <th>
+              Response Body
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Display the home page</td>
+            <td>/</td>
+            <td>GET</td>
+            <td>none</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Display a list of all movies</td>
+            <td>/movies</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>JSON Object holding data about all the movies</td>
+          </tr>
+          <tr>
+            <td>Display information about the selected movie</td>
+            <td>/movies/[MOVIE]</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>JSON Object containing information about a movie</td>
+          </tr>
+          <tr>
+            <td>Register a user into the system</td>
+            <td>/users</td>
+            <td>POST</td>
+            <td>JSON Object holding user registration information</td>
+            <td>Text message confirming that the user has successfully registered</td>
+          </tr>
+          <tr>
+            <td>Allow user to update their username</td>
+            <td>/users/[USERNAME]</td>
+            <td>PUT</td>
+            <td>none</td>
+            <td>Text message telling user that their username has been updated</td>
+          </tr>
+          <tr>
+            <td>Display a users list of favorite movies</td>
+            <td>/users/[USERNAME]/[MYLIST]</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>JSON Object containing a list of the user's favortie movies</td>
+          </tr>
+          <tr>
+            <td>Add a movie to the user's list</td>
+            <td>/users/[USERNAME]/[MYLIST]</td>
+            <td>POST</td>
+            <td>JSON Object containing the movie the user would like to add</td>
+            <td>Text message letting the user know the movie was successfully added</td>
+          </tr>
+          <tr>
+            <td>Remove a movie from the user's list</td>
+            <td>/users/[USERNAME]/[MYLIST]/[MOVIE]</td>
+            <td>DELETE</td>
+            <td>none</td>
+            <td>Text message letting user know the movie was removed</td>
+          </tr>
+          <tr>
+            <td>Deletes a user from the system</td>
+            <td>/users/[USERNAME]</td>
+            <td>DELETE</td>
+            <td>none</td>
+            <td>Lets user know they successfully deleted their profile</td>
+          </tr>
+          <tr>
+            <td>Display information about a movie genre</td>
+            <td>/genres/[GENRE]</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>JSON Object containing information about the selected genre</td>
+          </tr>
+          <tr>
+            <td>Display information about selected director</td>
+            <td>/directors/[DIRECTOR]</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>JSON Object containing information about the selected director</td>
+          </tr>
+        </tbody>
+      </table>
     </body>
   </html>
