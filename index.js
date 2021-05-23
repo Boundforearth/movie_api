@@ -48,7 +48,7 @@ app.post("/users/:username/mylist/:movie", function(req, res) {
   res.send("The movie has been added to your list.")
 });
 
-app.delete("/users/;username/mylist/:movie", function(req, res) {
+app.delete("/users/:username/mylist/:movie", function(req, res) {
   res.send("Gone forever is your movie.")
 });
 
