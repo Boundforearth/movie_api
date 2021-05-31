@@ -53,8 +53,14 @@
             <th scope="row">/users</th>
             <td>Register a user into the system</td>
             <td>POST</td>
-            <td>JSON Object holding user registration information. Username, Password, and Email are required.</td>
-            <td>JSON object of User's information</td>
+            <td>JSON Object holding user registration information. Username, Password, and Email are required.<br>
+              Example: <br>
+              "Username": "yourusername",  <br>
+              "Password": "yourpassword",  <br>
+              "Email": "youremail",  <br>
+              "Birthday": "yyyy-mm-dd" <br>
+            </td>
+            <td>JSON object of User's information.  Will be in the same format as above, but an ID will be returned as well</td>
           </tr>
           <tr>
             <th scope="row">/users/[USERNAME]</th>
@@ -67,7 +73,13 @@
             <th scope="row">/users/[USERNAME]</th>
             <td>Allow user to update their username</td>
             <td>PUT</td>
-            <td>JSON object with the information to be updates</td>
+            <td>JSON object with the information to be updates <br>
+              Example: <br>
+              "Username": "newusername",  <br>
+              "Password": "yourpassword",  <br>
+              "Email": "youremail",  <br>
+              "Birthday": "yyyy-mm-dd" <br>
+            </td>
             <td>Text message telling user that their username has been updated</td>
           </tr>
           <tr>
@@ -103,14 +115,14 @@
             <td>Display information about a movie genre</td>
             <td>GET</td>
             <td>none</td>
-            <td>JSON Object containing information about the selected genre</td>
+            <td>JSON Object containing the name and description for the desired genre</td>
           </tr>
           <tr>
             <th scope="row">/directors/[DIRECTOR]</th>
             <td>Display information about selected director</td>
             <td>GET</td>
             <td>none</td>
-            <td>JSON Object containing information about the selected director</td>
+            <td>JSON Object containing relevant information about the requested director</td>
           </tr>
         </tbody>
       </table>
