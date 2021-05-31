@@ -33,7 +33,7 @@
             <td>Display the home page</td>
             <td>GET</td>
             <td>none</td>
-            <td></td>
+            <td>Text Message welcoming user to the app</td>
           </tr>
           <tr>
             <th scope="row">/movies</th>
@@ -53,19 +53,26 @@
             <th scope="row">/users</th>
             <td>Register a user into the system</td>
             <td>POST</td>
-            <td>JSON Object holding user registration information</td>
-            <td>Text message confirming that the user has successfully registered</td>
+            <td>JSON Object holding user registration information. Username, Password, and Email are required.</td>
+            <td>JSON object of User's information</td>
+          </tr>
+          <tr>
+            <th scope="row">/users/[USERNAME]</th>
+            <td>Get a user's profile</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>JSON response contaning all the user's input information</td>
           </tr>
           <tr>
             <th scope="row">/users/[USERNAME]</th>
             <td>Allow user to update their username</td>
             <td>PUT</td>
-            <td>none</td>
+            <td>JSON object with the information to be updates</td>
             <td>Text message telling user that their username has been updated</td>
           </tr>
           <tr>
             <th scope="row">/users/[USERNAME]/mylist</th>
-            <td>Display a users list of favorite movies</td>
+            <td>Display a user's list of favorite movies</td>
             <td>GET</td>
             <td>none</td>
             <td>JSON Object containing a list of the user's favortie movies</td>
@@ -74,7 +81,7 @@
             <th scope="row">/users/[USERNAME]/mylist/[MOVIE]</th>
             <td>Add a movie to the user's list</td>
             <td>POST</td>
-            <td>JSON Object containing the movie the user would like to add</td>
+            <td>none, as the movie ID is a paramater in the header</td>
             <td>Text message letting the user know the movie was successfully added</td>
           </tr>
           <tr>
