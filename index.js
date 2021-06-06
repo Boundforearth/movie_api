@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Models = require("./models.js");
+const {check, validationResult} = require("express-validator");
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,6 +13,19 @@ let auth = require('./auth')(app);
 
 const passport = require('passport');
 require('./passport');
+
+const cors = require("cors");
+let allowedOrigins = ["http://localhost:8080", "http://testsite.com"];
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) {return callback(null, true);}
+    if(allowedOrigins.indexOf(origin) === -1) {
+      // If s specific origin isn't found on the list of allowed origins
+      let message = "The CORS policy for this application doesn't allow access from origin " + origin;
+      return callback(null, true);
+    }
+  }
+}));
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -57,7 +71,19 @@ app.get("/movies/:movie", passport.authenticate("jwt", {session: false}), (req, 
 });
 
 //Creates a user based on their input information.  Checks if the username already exists before creation.
-app.post("/users", (req, res) => {
+app.post("/users", 
+//Validations for user registration
+[check("Username", "Username must be at least 5 characters").isLength({min: 5}),
+check("Username", "Username contains non-alphanumeric characters").isAlphanumeric(),
+check("Password", "Password must be at least 8 characters").isLength({min: 8}),
+check("Email", "Please enter a valid Email address").isEmail()], 
+(req, res) => {
+  //Check for errors in validation
+  let errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array()});
+  }
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({Username: req.body.Username})
     .then((user) => {
       if(user) {
@@ -66,7 +92,7 @@ app.post("/users", (req, res) => {
       else {
         Users.create({
           Username: req.body.Username,
-          Password: req.body.Password,
+          Password: hashedPassword,
           Email: req.body.Email,
           Birthday: req.body.Birthday
         }).then((user) => {
@@ -96,7 +122,20 @@ app.get("/users/:user", passport.authenticate("jwt", {session: false}), (req, re
 });
 
 //Allows a username to update their information
-app.put("/users/:username", passport.authenticate("jwt", {session: false}), (req, res) => {
+app.put("/users/:username",
+//Validations for user registration
+[check("Username", "Username must be at least 5 characters").isLength({min: 5}),
+check("Username", "Username contains non-alphanumeric characters").isAlphanumeric(),
+check("Password", "Password must be at least 8 characters").isLength({min: 8}),
+check("Email", "Please enter a valid Email address").isEmail()],  
+passport.authenticate("jwt", {session: false}), 
+(req, res) => {
+
+  //Check for errors in validation
+  let errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array()});
+  }
   //Checks if the new username exists first
   Users.findOne({Username: req.body.Username})
     .then((user) => {
@@ -226,7 +265,7 @@ app.get("/directors/:director", passport.authenticate("jwt", {session: false}), 
     });
 });
 
-//Server on port 8080
-app.listen(8080, function() {
-  console.log("I am a server");
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0', () => {
+  console.log("Listening on Port " + port);
 });
