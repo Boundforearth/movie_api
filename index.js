@@ -32,8 +32,11 @@ const Users = Models.User;
 //Morgan will log basic info to console
 app.use(morgan("common"));
 
-mongoose.connect("mongodb://localhost:27017/myFlixDB", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+//local mongoose.connect for possible testing purposes
+//mongoose.connect("mongodb://localhost:27017/myFlixDB", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
+//connect to online database
+mongoose.connect(process.env.CONNECT_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 //Grab static pages from "public" folder
 app.use('/', express.static('public'));
 
