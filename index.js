@@ -36,7 +36,10 @@ app.use(morgan("common"));
 //mongoose.connect("mongodb://localhost:27017/myFlixDB", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 //connect to online database
-mongoose.connect(process.env.CONNECT_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect(process.env.CONNECT_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+  .catch((err) => {
+    console.log(err);
+  });
 //Grab static pages from "public" folder
 app.use('/', express.static('public'));
 
