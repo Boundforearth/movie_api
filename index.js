@@ -28,11 +28,6 @@ app.use(cors({
   }
 }));
 
-const Movies = Models.Movie;
-const Users = Models.User;
-//Morgan will log basic info to console
-app.use(morgan("common"));
-
 //local mongoose.connect for possible testing purposes
 //mongoose.connect("mongodb://localhost:27017/myFlixDB", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
@@ -41,6 +36,13 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
   .catch((err) => {
     console.log(err);
   });
+
+const Movies = Models.Movie;
+const Users = Models.User;
+//Morgan will log basic info to console
+app.use(morgan("common"));
+
+
 //Grab static pages from "public" folder
 app.use('/', express.static('public'));
 
