@@ -1,4 +1,4 @@
-// Import express and morgan
+// Import Dependencies
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
@@ -15,15 +15,16 @@ const passport = require('passport');
 require('./passport');
 
 const cors = require("cors");
-let allowedOrigins = ["http://localhost:8080", "http://testsite.com"];
+let allowedOrigins = ["http://localhost:8080", "https://myflix-57495.herokuapp.com/"];
 app.use(cors({
   origin: (origin, callback) => {
     if(!origin) {return callback(null, true);}
     if(allowedOrigins.indexOf(origin) === -1) {
       // If s specific origin isn't found on the list of allowed origins
       let message = "The CORS policy for this application doesn't allow access from origin " + origin;
-      return callback(null, true);
+      return callback( new Error(message), false);
     }
+    return callback(null, true);
   }
 }));
 
@@ -89,12 +90,16 @@ check("Email", "Please enter a valid Email address").isEmail()],
   if(!errors.isEmpty()) {
     return res.status(422).json({errors: errors.array()});
   }
+  // Hash the password
   let hashedPassword = Users.hashPassword(req.body.Password);
+
+  //Check if Username already exists
   Users.findOne({Username: req.body.Username})
     .then((user) => {
       if(user) {
         return res.status(400).send(req.body.Username + "already exists.")
       }
+      //If Username does not already exist, run the remaining code
       else {
         Users.create({
           Username: req.body.Username,
@@ -142,6 +147,9 @@ passport.authenticate("jwt", {session: false}),
   if(!errors.isEmpty()) {
     return res.status(422).json({errors: errors.array()});
   }
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
+
   //Checks if the new username exists first
   Users.findOne({Username: req.body.Username})
     .then((user) => {
@@ -154,7 +162,7 @@ passport.authenticate("jwt", {session: false}),
         Users.findOneAndUpdate({Username: req.params.username},
           {$set: {
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           }},
@@ -196,7 +204,6 @@ app.post("/users/:username/mylist/:movieid", passport.authenticate("jwt", {sessi
           sameMovieExists = myMovie;
         }
       }
-      console.log(sameMovieExists + "  " + req.params.movieid)
       if(sameMovieExists === req.params.movieid) {
         res.status(400).send("That movie is already in your favorites!")
       }
