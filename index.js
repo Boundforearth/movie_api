@@ -9,8 +9,6 @@ const {check, validationResult} = require("express-validator");
 const app = express();
 app.use(bodyParser.json());
 
-let auth = require('./auth')(app);
-
 const passport = require('passport');
 require('./passport');
 
@@ -27,6 +25,8 @@ app.use(cors({
     return callback(null, true);
   }
 }));
+
+let auth = require('./auth')(app);
 
 //local mongoose.connect for possible testing purposes
 //mongoose.connect("mongodb://localhost:27017/myFlixDB", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
