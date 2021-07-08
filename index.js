@@ -122,17 +122,24 @@ check("Email", "Please enter a valid Email address").isEmail()],
 });
 
 
-//Get a users information.  Useful for testing and checking if information updated or deleted
-//Remove before final release as it displays passwords, birthdays, and emails.
-/*app.get("/users/:user", passport.authenticate("jwt", {session: false}), (req, res) => {
+//Get a users information. Does not return the user's password
+app.get("/users/:user", passport.authenticate("jwt", {session: false}), (req, res) => {
   Users.findOne({Username: req.params.user})
     .then((user) => {
-      res.status(201).json(user);
+      res.status(201).json(
+        {
+          Username: user.Username,
+          Email: user.Email,
+          _id: user._id,
+          Birthday: user.Birthday,
+          Favorites: user.Favorites
+        }
+      );
     }).catch((err) => {
       console.error(err);
       res.status(500).send("Error: " + err);
     });
-});*/
+});
 
 //Allows a username to update their information
 app.put("/users/:username",
