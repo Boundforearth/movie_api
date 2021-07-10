@@ -162,11 +162,12 @@ passport.authenticate("jwt", {session: false}),
   //Checks if the new username exists first
   Users.findOne({Username: req.body.Username})
     .then((user) => {
-      if(user) {
+      //code that would be use to prevent changing to an existing user.
+     // if(user) {
         //If the username already exists, the change is rejected
-        res.status(400).send("That username is already taken, please choose a different one.");
-      }
-      else {
+        //res.status(400).send("That username is already taken, please choose a different one.");
+      //}
+     // else {
         //If the new username does not exist, this code runs to update to the new username.
         Users.findOneAndUpdate({Username: req.params.username},
           {$set: {
@@ -183,7 +184,7 @@ passport.authenticate("jwt", {session: false}),
             console.log(err);
             res.status(500).send("Error: " + err);
           })
-      }
+      //}
    });
   });
 
