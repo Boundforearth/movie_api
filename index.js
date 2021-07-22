@@ -13,7 +13,15 @@ const passport = require('passport');
 require('./passport');
 
 const cors = require("cors");
-let allowedOrigins = ["http://localhost:8080", "https://myflix-57495.herokuapp.com/login", "http://localhost", "http://localhost:1234", "https://james-myflix.netlify.app/"];
+let allowedOrigins = [
+  "http://localhost:8080", 
+  "https://myflix-57495.herokuapp.com/login", 
+  "http://localhost", 
+  "http://localhost:1234", 
+  "https://james-myflix.netlify.app",
+  "http://james-myflix.netlify.app",
+  "james-myflix.netlify.app"
+];
 app.use(cors({
   origin: (origin, callback) => {
     if(!origin) {return callback(null, true);}
