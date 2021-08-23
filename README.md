@@ -1,5 +1,5 @@
 # myFlix
-An API to built with Express in Node
+An API built with Express in Node
 
 ## Uses
 Allow users to register and login to the website.
