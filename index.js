@@ -18,6 +18,7 @@ let allowedOrigins = [
   "https://myflix-57495.herokuapp.com/login", 
   "http://localhost", 
   "http://localhost:1234", 
+  "http://localhost:4200",
   "https://james-myflix.netlify.app",
   "http://james-myflix.netlify.app",
   "james-myflix.netlify.app"
