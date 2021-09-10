@@ -263,10 +263,10 @@ app.delete("/users/:username", passport.authenticate("jwt", {session: false}), (
   Users.findOneAndRemove({Username: req.params.username})
     .then((user) => {
       if(!user) {
-        res.status(400).send(Username + "Username not found");
+        res.status(400).send(username+ " was not found.");
       }
       else {
-        res.status(201);
+        res.status(200).send(username + " was deleted.");
       }
     })
     .catch((err) => {
