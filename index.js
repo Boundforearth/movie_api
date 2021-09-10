@@ -266,7 +266,7 @@ app.delete("/users/:username", passport.authenticate("jwt", {session: false}), (
         res.status(400).send("Username not found");
       }
       else {
-        res.status(200).send("Username Deleted");
+        res.status(201).send("Username Deleted");
       }
     })
     .catch((err) => {
