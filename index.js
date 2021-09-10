@@ -21,7 +21,11 @@ let allowedOrigins = [
   "http://localhost:4200",
   "https://james-myflix.netlify.app",
   "http://james-myflix.netlify.app",
-  "james-myflix.netlify.app"
+  "james-myflix.netlify.app",
+  "https://boundforearth.github.io/myFlix-Angular-client/",
+  "boundforearth.github.io/myFlix-Angular-client/",
+  "http://boundforearth.github.io/myFlix-Angular-client/",
+  
 ];
 app.use(cors({
   origin: (origin, callback) => {
